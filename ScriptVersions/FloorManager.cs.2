@@ -1,0 +1,64 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FloorManager : MonoBehaviour {
+
+    public Transform[] m_aFloorPrefabs;
+
+    public float m_fFloorStartZ;
+    public float m_fFloorEndZ;
+    public float m_fMinMovementSpeed;
+    public float m_fMaxMovementSpeed;
+
+    private float m_fMovementSpeed;
+
+	// Use this for initialization
+	void Start () {
+        float fZPos = 0.0f;
+        float fFloorLength = Mathf.Abs(m_fFloorStartZ) + Mathf.Abs(m_fFloorEndZ);
+
+        Debug.Log("Floor length is: " + fFloorLength.ToString());
+
+        m_fMovementSpeed = m_fMinMovementSpeed;
+
+        while (fZPos > -fFloorLength)
+        {
+            SpawnNewFloor(fZPos);
+            fZPos -= 5.0f;
+        }  	
+	}
+
+
+    public void SpawnNewFloor(float fZOffset)
+    {
+        Transform tFloorTransform = Instantiate(m_aFloorPrefabs[Random.Range(0, m_aFloorPrefabs.Length - 1)], new Vector3(0.0f, 0.0f, m_fFloorStartZ + fZOffset), Quaternion.identity);
+        if (null == tFloorTransform)
+        {
+            Debug.LogError("Unable to instantiate floor part");
+            return;
+        }
+
+        FloorPart gcFloorPart = tFloorTransform.GetComponent<FloorPart>();
+        if (null == gcFloorPart)
+        {
+            Debug.LogError("Prefab does not have a FloorPart component, unable to create the floor!");
+            return;
+        }
+
+        gcFloorPart.m_fEndZ = m_fFloorEndZ;
+        gcFloorPart.m_fStartZ = m_fFloorStartZ + fZOffset;
+        gcFloorPart.m_fMovementSpeed = m_fMovementSpeed;
+
+        gcFloorPart.m_gcFloorManager = this;
+    }
+
+
+    // Update is called once per frame
+    void Update () {
+
+    }
+
+
+
+}

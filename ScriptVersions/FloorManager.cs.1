@@ -1,0 +1,43 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FloorManager : MonoBehaviour {
+
+    public Transform[] m_aFloorPrefabs;
+
+    public float m_fFloorStartZ;
+    public float m_fFloorEndZ;
+    public float m_fMinMovementSpeed;
+    public float m_fMaxMovementSpeed;
+
+    private float m_fMovementSpeed;
+
+	// Use this for initialization
+	void Start () {
+        float fZPos = m_fFloorStartZ;
+        m_fMovementSpeed = m_fMinMovementSpeed;
+
+        while (fZPos > m_fFloorEndZ)
+        {
+            Transform tFloorTransform = Instantiate(m_aFloorPrefabs[Random.Range(0, m_aFloorPrefabs.Length-1)], new Vector3(0.0f, 0.0f, fZPos), Quaternion.identity);
+            FloorPart gcFloorPart = tFloorTransform.GetComponent<FloorPart>();
+            if (null == gcFloorPart)
+            {
+                Debug.LogError("Prefab does not have a FloorPart component, unable to create the floor!");
+                return;
+            }
+
+            gcFloorPart.m_fEndZ = m_fFloorEndZ;
+            gcFloorPart.m_fStartZ = fZPos;
+            gcFloorPart.m_fMovementSpeed = m_fMovementSpeed;
+
+            fZPos -= 5.0f;
+        }  	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
