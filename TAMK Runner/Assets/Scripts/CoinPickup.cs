@@ -5,6 +5,8 @@ using UnityEngine;
 public class CoinPickup : ScrollingFloorItem
 {
 
+    public Transform m_tParticleEffect;
+
     new void Start()
     {
         m_tTransform = GetComponent<Transform>();
@@ -26,7 +28,9 @@ public class CoinPickup : ScrollingFloorItem
             PlayerMovementController gc = other.gameObject.GetComponent<PlayerMovementController>();
             if (null != gc)
             {
-                // Spawn a new particle effect
+                Instantiate(m_tParticleEffect, other.transform.position, Quaternion.identity);
+                FloorManager fm = GameObject.Find("FloorManager").GetComponent<FloorManager>();
+                fm.IncreaseSpeed();
                 // Play an Audio Sting
                 GameGlobals.Instance.m_iCoinsCollected++;
                 Destroy(gameObject);

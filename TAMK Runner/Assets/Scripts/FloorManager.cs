@@ -20,7 +20,7 @@ public class FloorManager : MonoBehaviour {
     public float m_fSpeedupInterval = 1.0f;
     public float m_fSpeedUpAmount;
 
-    private float m_fMovementSpeed;
+    [SerializeField] private float m_fMovementSpeed;
     private int m_iNumberOfParts;
     private float m_fBaddieSpawnEventTime;
     private float m_fCoinSpawnEventTime;
@@ -133,7 +133,7 @@ public class FloorManager : MonoBehaviour {
         }
     }
 
-    void SetSpeed(float fSpeed)
+    public void SetSpeed(float fSpeed)
     {
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Floor Parts"))
         {
@@ -141,6 +141,11 @@ public class FloorManager : MonoBehaviour {
             if (null != gcFloorPart)
                 gcFloorPart.m_fMovementSpeed = fSpeed;
         }
+    }
+
+    public void IncreaseSpeed()
+    {
+        m_fMovementSpeed = Mathf.Clamp(m_fMovementSpeed + m_fSpeedUpAmount, m_fMinMovementSpeed, m_fMaxMovementSpeed);
     }
 
     private void FixedUpdate()

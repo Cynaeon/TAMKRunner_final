@@ -18,10 +18,10 @@ public class UIController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        m_gcDistanceText.text = m_gcGameGlobals.m_fDistanceTravelled.ToString() + "m";
+        m_gcDistanceText.text = m_gcGameGlobals.m_fDistanceTravelled.ToString("0") + "m";
         m_gcCoinsText.text = m_gcGameGlobals.m_iCoinsCollected.ToString();
         if (!m_gcGameGlobals.m_bPlayerIsAlive)
-            m_gcGameOverText.text = "You Scored: " + (m_gcGameGlobals.m_fDistanceTravelled + m_gcGameGlobals.m_fDistanceTravelled  * m_gcGameGlobals.m_iCoinsCollected).ToString() + "\nPress Jump to Play Again";
+            m_gcGameOverText.text = "You Scored: " + (m_gcGameGlobals.m_fDistanceTravelled + m_gcGameGlobals.m_fDistanceTravelled  * m_gcGameGlobals.m_iCoinsCollected).ToString("0") + "\nPress Jump to Play Again";
         else
             m_gcGameOverText.text = "";
     }

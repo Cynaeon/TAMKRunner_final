@@ -20,8 +20,6 @@ public class GameState : MonoBehaviour
     
 
 
-
-
     // This enum stops us sending random junk to GameStateManager::ChangeState
 
     public enum tStateType

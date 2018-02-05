@@ -35,7 +35,6 @@ public class gs_MainMenuIn : GameState
 
             case tMenuState._Idle:
                 Debug.Log("Wait For Input");
-                iState = tMenuState._FadeOut;
                 break;
 
             case tMenuState._FadeOut:
@@ -43,5 +42,6 @@ public class gs_MainMenuIn : GameState
                 m_gcGameStateManager.ChangeState(GameState.tStateType._GameIn, "level1");
                 break;
         }
+
     }
 }

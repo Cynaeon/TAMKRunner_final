@@ -80,7 +80,7 @@ public class PlayerMovementController : MonoBehaviour {
         {
             m_vTrajectory.y = m_fJumpVelocity;
             m_vTrajectory.y -= m_fGravity * Time.deltaTime;
-            m_vTrajectory.x = (Mathf.Clamp(Input.GetAxis("Horizontal"), -1.0f, 1.0f) * m_fMovementSpeed) * Time.deltaTime;
+            m_vTrajectory.x = (Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1.0f, 1.0f) * m_fMovementSpeed) * Time.deltaTime;
         }
 
         // Give the trajectory to the Character Controller's Move()
